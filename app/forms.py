@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, SubmitField
-from wtforms.validators import DataRaquired
+from wtforms import StringField, SubmitField, BooleanField
+from wtforms.validators import DataRequired
 
 
 class TodoForm(FlaskForm):
-  task = StringField('Enter Task', validators=[DataRaquired()])
-  is_complete = BooleanField('Is Complete')
-  submit = SubmitField('Submit')
+  tasks = StringField('Enter Task', validators=[DataRequired()])
+  is_complete = BooleanField('Is Complete?')
+  submit = SubmitField('Add')

@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <div class="container">
+
+    <form action="{{ url_for('index') }}" method="POST">
+      {{ form.csrf_token() }}
+      <div class="form-group">
+        {{ form.tasks.label}}
+        {{ form.tasks(class="form-control") }}
+        {% if form.tasks.errors %}
+        <ul class="errors">
+          {% for error in errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      {{ form.submit(class="btn btn-primary") }}
+    </form>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Tasks</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+        <tr>
+          <td>{{ task.tasks}}</td>
+
+          {% if not task.complete %}
+            <td>Active</td>
+          {% else %}
+            <td>Complete</td>
+          {%endif%}
+          <td>
+            <a href="/update/{{task.id}}">Mark as complete</a> | <a href="/delete/{{task.id}}">Delete?</a>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}
