@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-<div class="card">
+<div class="card" style="width: 612px; margin: 0 auto; float:none; margin-bottom: 10px;;">
   <div class="card-body">
   <form method="post" action="{{ url_for('index') }}">
     {{form.csrf_token()}}
@@ -13,7 +13,7 @@
     {{form.submit(class="btn btn-primary")}}
   </form>
 
-  <div>
+  <div class="pt-2">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all"
@@ -54,7 +54,7 @@
             
             
             <td>
-              {% if not task.complete %}<a href="/update/{{task.id}}">mark as omplete?</a> |{% endif %} <a href="/delete/{{ task.id }}">Delete</a>
+              {% if not task.complete %}<a href="/update/{{task.id}}"><img src="/static/icons/complete.svg" alt="complete task?"></a> {% else %} <a href="/delete/{{ task.id }}"><img src="/static/icons/delete.svg" alt="delete item?"></a> {% endif %}
             </td>
           </tr>
           {% endfor %}
@@ -86,7 +86,7 @@
 
 
             <td>
-              <a href="/update/{{task.id}}">mark as omplete?</a> | <a href="/delete/{{ task.id }}">Delete</a>
+              <a href="/update/{{task.id}}"><img src="/static/icons/complete.svg" alt=""></a>
             </td>
           </tr>
           {% endif %}
@@ -118,7 +118,7 @@
             {% endif %}
 
             <td>
-              <a href="/delete/{{ task.id }}">Delete</a>
+              <a href="/delete/{{ task.id }}"><img src="/static/icons/delete.svg" alt=""></a>
             </td>
           </tr>
           {% endif %}
@@ -126,6 +126,11 @@
       
         </tbody>
       </table>
+
+    <form action="/delete_all" method="post" style="display:inline-block">
+      <button class="btn active" name="showall" type="submit"> Delete All</button>
+    </form>
+
     </div>
   </div>
 
@@ -133,5 +138,6 @@
   </div>
   </div>
 </div>
+
 </div>
 {% endblock content %}

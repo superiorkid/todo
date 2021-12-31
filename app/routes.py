@@ -34,3 +34,11 @@ def delete(id):
   db.session.delete(task_to_delete)
   db.session.commit()
   return redirect(url_for('index'))
+
+@app.post('/delete_all')
+@app.get('/delete_all')
+def delete_all():
+  db.session.query(Todo).filter(Todo.complete == True).delete()
+  db.session.commit()
+
+  return redirect(url_for('index'))
