@@ -19,7 +19,6 @@ def index():
   tasks = Todo.query.all()
   return render_template('index.html', form=form, tasks=tasks)
 
-@app.post('/update/<int:id>')
 @app.get('/update/<int:id>')
 def update(id):
   task = Todo.query.filter_by(id=id).first()
@@ -28,7 +27,6 @@ def update(id):
   return redirect(url_for('index'))
 
 @app.get('/delete/<int:id>')
-@app.post('/delete/<int:id>')
 def delete(id):
   task_to_delete = Todo.query.filter_by(id=id).first()
   db.session.delete(task_to_delete)
@@ -36,7 +34,6 @@ def delete(id):
   return redirect(url_for('index'))
 
 @app.post('/delete_all')
-@app.get('/delete_all')
 def delete_all():
   db.session.query(Todo).filter(Todo.complete == True).delete()
   db.session.commit()
