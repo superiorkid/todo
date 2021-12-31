@@ -9,15 +9,14 @@ def index():
   form = TodoForm()
 
   if form.validate_on_submit():
+
     new_task = Todo(tasks=form.tasks.data)
     db.session.add(new_task)
     db.session.commit()
-    
+      
     return redirect(url_for('index'))
 
   tasks = Todo.query.all()
-
-
   return render_template('index.html', form=form, tasks=tasks)
 
 @app.post('/update/<int:id>')

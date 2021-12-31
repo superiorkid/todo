@@ -1,49 +1,137 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="container">
+<div class="card">
+  <div class="card-body">
+  <form method="post" action="{{ url_for('index') }}">
+    {{form.csrf_token()}}
+    <div class="form-group">
+      {{form.tasks.label}}
+      {{form.tasks(class="form-control")}}
+    </div>
+    {{form.submit(class="btn btn-primary")}}
+  </form>
 
-  <div class="container">
+  <div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all"
+        aria-selected="true">All</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active"
+        aria-selected="false">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="complete-tab" data-toggle="tab" href="#complete" role="tab" aria-controls="complete"
+        aria-selected="false">Complete</a>
+    </li>
+  </ul>
 
-    <form action="{{ url_for('index') }}" method="POST">
-      {{ form.csrf_token() }}
-      <div class="form-group">
-        {{ form.tasks.label}}
-        {{ form.tasks(class="form-control") }}
-        {% if form.tasks.errors %}
-        <ul class="errors">
-          {% for error in errors %}
-          <li>{{ error}}</li>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks%}
+
+          <tr>
+            <td>{{ task.tasks }}</td>
+
+            {% if not task.complete %}
+              <td>Active</td>
+            {% else %}
+              <td>Complete</td>
+            {% endif %}
+            
+            
+            
+            <td>
+              {% if not task.complete %}<a href="/update/{{task.id}}">mark as omplete?</a> |{% endif %} <a href="/delete/{{ task.id }}">Delete</a>
+            </td>
+          </tr>
           {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
-      {{ form.submit(class="btn btn-primary") }}
-    </form>
-  
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Tasks</th>
-          <th scope="col">Status</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in tasks %}
-        <tr>
-          <td>{{ task.tasks}}</td>
 
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="active" role="tabpanel" aria-labelledby="active-tab">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks%}
           {% if not task.complete %}
+      
+          <tr>
+            <td>{{ task.tasks }}</td>
+
+            {% if not task.complete %}
+              <td>Active</td>
+            {% else %}
+              <td>Complete</td>
+            {% endif %}
+
+
+            <td>
+              <a href="/update/{{task.id}}">mark as omplete?</a> | <a href="/delete/{{ task.id }}">Delete</a>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tab-pane fade" id="complete" role="tabpanel" aria-labelledby="complete-tab">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks%}
+          {% if task.complete %}
+      
+          <tr>
+            <td>{{ task.tasks }}</td>
+            {% if not task.complete %}
             <td>Active</td>
-          {% else %}
+            {% else %}
             <td>Complete</td>
-          {%endif%}
-          <td>
-            <a href="/update/{{task.id}}">Mark as complete</a> | <a href="/delete/{{task.id}}">Delete?</a>
-          </td>
-        </tr>
-        {% endfor%}
-      </tbody>
-    </table>
+            {% endif %}
+
+            <td>
+              <a href="/delete/{{ task.id }}">Delete</a>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+      
+        </tbody>
+      </table>
+    </div>
   </div>
+
+
+  </div>
+  </div>
+</div>
+</div>
 {% endblock content %}
