@@ -1,6 +1,6 @@
 # todo
 
-**Challenge**: Create a todo app following given design. use front-end libraries like react or vue. dont look at the existing solution. fulfill user stories below:
+**Challenge**: Create a todo app.  fulfill user stories below:
   - **User story** : I can add a new task
   - **User story** : I can complete task
   - **User story** : I can toggle between All, Active and Complete
