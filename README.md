@@ -27,7 +27,7 @@ Execute the following command to install the required third party libraries
 
 ## Usage
 
-  - install postgresql and import the database, name "todo"
+  - install postgresql and import the database
   - clone this repository
 
     ```
