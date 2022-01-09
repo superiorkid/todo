@@ -124,4 +124,3 @@ CREATE UNIQUE INDEX ix_todo_tasks ON public.todo USING btree (tasks);
 --
 -- PostgreSQL database dump complete
 --
-
